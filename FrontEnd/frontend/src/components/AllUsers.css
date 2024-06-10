@@ -1,0 +1,18 @@
+.white{
+    color: white;
+}
+ul {
+    list-style-type: none;
+  
+}
+.listItem{
+    margin: 4% 6%;
+    padding: 3%;
+    background-color: #fdf0d1;
+    color: black;
+    border-radius:10px;
+}
+.center-div{
+    margin-right:6%;
+    text-align: end;
+}
