@@ -1,8 +1,21 @@
 import "./ReadDialogBox.css";
-export default function ReadDialogBox() {
+import React, { useEffect, useState } from "react";
+
+export default function ReadDialogBox(props) {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:8989/findUserById/${props.rd}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        console.log(data);
+      })
+      .catch((error) => console.error("Error fetching users:", error));
+  }, [props.rd]);
   return (
     <div className="col-1">
       <button
+        id="readButton"
         type="button"
         className="btn btn-outline-dark"
         data-bs-toggle="modal"
@@ -44,8 +57,8 @@ export default function ReadDialogBox() {
                 <input
                   type="text"
                   class="form-control"
-                  id="disabledUserName" 
-                  placeholder="Example" 
+                  id="disabledUserName"
+                  placeholder={users.username}
                   disabled
                 ></input>
               </div>
@@ -54,8 +67,8 @@ export default function ReadDialogBox() {
                 <input
                   type="text"
                   class="form-control"
-                  id="disabledUserEmail" 
-                  placeholder="Example" 
+                  id="disabledUserEmail"
+                  placeholder={users.useremail}
                   disabled
                 ></input>
               </div>
@@ -64,8 +77,8 @@ export default function ReadDialogBox() {
                 <input
                   type="text"
                   class="form-control"
-                  id="disabledUserPhone" 
-                  placeholder="Example" 
+                  id="disabledUserPhone"
+                  placeholder={users.userphone}
                   disabled
                 ></input>
               </div>
@@ -74,8 +87,8 @@ export default function ReadDialogBox() {
                 <input
                   type="text"
                   class="form-control"
-                  id="disabledUserAge" 
-                  placeholder="Example" 
+                  id="disabledUserAge"
+                  placeholder={users.userage}
                   disabled
                 ></input>
               </div>
@@ -84,8 +97,8 @@ export default function ReadDialogBox() {
                 <input
                   type="text"
                   class="form-control"
-                  id="disabledUserOrders" 
-                  placeholder="Example" 
+                  id="disabledUserOrders"
+                  placeholder={users.userorders}
                   disabled
                 ></input>
               </div>
@@ -94,8 +107,8 @@ export default function ReadDialogBox() {
                 <input
                   type="text"
                   class="form-control"
-                  id="disabledUserLocation" 
-                  placeholder="Example" 
+                  id="disabledUserLocation"
+                  placeholder={users.userlocation}
                   disabled
                 ></input>
               </div>

@@ -8,36 +8,42 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 public class UserController {
     @Autowired
-    private UserRepo repo;
+    public UserService userService;
+
 
     @PostMapping("/addUser")
-    public String saveUser(@RequestBody User user){
-        repo.save(user);
+    public String saveController(@RequestBody User user){
+        userService.saveUser(user);
         return "Added Successfully";
     }
 
     @GetMapping("/findAllUsers")
-    public List<User> getUsers() {
-
-        return repo.findAll();
+    public List<User> findAllController() {
+        return userService.getUsers();
     }
     @GetMapping("/findUserById/{id}")
-    public String getUserById(@PathVariable int id) {
-
-        repo.findById(id);
-        return "Returned user.";
+    public Optional<User> idController(@PathVariable("id") String id) {
+        return userService.getUserById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteUser(@PathVariable int id){
-        repo.deleteById(id);
+    @DeleteMapping("/deleteUser/{id}")
+    public String deleteController(@PathVariable String id){
+        userService.deleteUser(id);
         return "Deleted Successfully";
     }
-    @PutMapping
-    public String updateUser(@RequestBody User user){
-        repo.save(user);
-        return "Updated Successfully";
+    @PatchMapping("/patchUser/{id}")
+    public String patchUpdateController(@PathVariable("id") String _id, @RequestBody User user){
+        return userService.patchUser(_id,user);
     }
+    @PutMapping("/updateUser/{id}")
+    public User updateController(@PathVariable("id") String _id, @RequestBody User user) {
+        user.set_id(_id);
+        userService.updateUser(user);
+        return user;
+    }
+
+
 }

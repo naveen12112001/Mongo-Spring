@@ -6,13 +6,21 @@ ul {
   
 }
 .listItem{
-    margin: 4% 6%;
-    padding: 3%;
     background-color: #fdf0d1;
     color: black;
     border-radius:10px;
+    align-items: center;
+    padding: 2%;
 }
 .center-div{
     margin-right:6%;
     text-align: end;
 }
+.space{
+    padding: 2%;
+    justify-content: space-evenly;
+}
+.container{
+    padding: 2%;
+}
+
