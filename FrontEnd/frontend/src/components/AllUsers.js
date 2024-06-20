@@ -4,55 +4,66 @@ import "./AllUsers.css";
 import DeleteDialogBox from "./DeleteDialogBox";
 import ReadDialogBox from "./ReadDialogBox";
 import UpdateDialogBox from "./UpdateDialogBox";
-// const listItems = items.map((item) => (
-//   <li>
-//     <div className="listItem row">
-//       <div className="col">
-//         <div>{item}</div>
-//         <div className="row">
-//           <div className="col">{item}</div>
-//           <div className="col">{item}</div>
-//           <div className="col">{item}</div>
-//         </div>
-//       </div>
-//       <ReadDialogBox />
-//       <UpdateDialogBox />
-//       <DeleteDialogBox />
-//     </div>
-//   </li>
-// ));
+import axios from "axios";
+import { Toast, ToastContainer } from "react-bootstrap";
 export default function AllUsers() {
   const [users, setUsers] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+  const [toastBody, setToastBody] = useState("");
+  const handleCloseToast = () => setShowToast(false);
+  const fetchData = async () => {
+    const response = await axios.get("http://localhost:8989/findAllUsers");
+    setUsers(response.data);
+  };
+  function updateToastBody(newBody) {
+    setToastBody(newBody);
+  }
+  fetchData();
   useEffect(() => {
-    fetch("http://localhost:8989/findAllUsers")
-      .then((response) => response.json())
-      .then((data) => {
-        setUsers(data);
-      })
-      .catch((error) => console.error("Error fetching users:", error));
+    fetchData();
   }, []);
   return (
     <div className="container">
       <h1 className="white">All Users</h1>
-      <AddDialogBox />
+      <AddDialogBox
+        setShowToast={setShowToast}
+        updateToastBody={updateToastBody}
+      />
       <div className="row space">
         {users.map((user) => (
-          <div className="listItem col-3 m-2" id={user._id}>
+          <div className="listItem col-3 m-2" key={user._id}>
             <div>{user.username}</div>
             <div className="row">
               <div className="col">
-                <ReadDialogBox rd={user._id}/>
+                <ReadDialogBox readrd={user._id} />
               </div>
               <div className="col">
-                <UpdateDialogBox />
+                <UpdateDialogBox
+                  updaterd={user._id}
+                  setShowToast={setShowToast}
+                  updateToastBody={updateToastBody}
+                />
               </div>
               <div className="col">
-                <DeleteDialogBox />
+                <DeleteDialogBox
+                  deleterd={user._id}
+                  refreshUsers={fetchData}
+                  setShowToast={setShowToast}
+                  updateToastBody={updateToastBody}
+                />
               </div>
             </div>
           </div>
         ))}
       </div>
+      <ToastContainer position="bottom-end">
+        <Toast className="mainToast" show={showToast} onClose={handleCloseToast}>
+          <Toast.Header>
+            <strong className="me-auto">Users</strong>
+          </Toast.Header>
+          <Toast.Body>{toastBody}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   );
 }

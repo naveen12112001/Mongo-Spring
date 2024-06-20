@@ -1,105 +1,124 @@
-export default function AddDialogBox() {
+import { useRef } from "react";
+import axios from "axios";
+import { Button, Modal, Form, Toast } from "react-bootstrap";
+import { useState } from "react";
+export default function AddDialogBox({setShowToast,updateToastBody}) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const updatedNameRef = useRef();
+  const updatedAgeRef = useRef();
+  const updatedPhoneRef = useRef();
+  const updatedLocationRef = useRef();
+  const updatedOrdersRef = useRef();
+  const updatedEmailRef = useRef();
+
+  async function handleAddSubmit() {
+    const updatedObject = {
+      username: updatedNameRef.current.value,
+      userage: updatedAgeRef.current.value,
+      useremail: updatedEmailRef.current.value,
+      userorders: updatedOrdersRef.current.value,
+      userphone: updatedPhoneRef.current.value,
+      userlocation: updatedLocationRef.current.value,
+    };
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8989/addUser`,
+        updatedObject
+      );
+      updatedNameRef.current.value = "";
+      updatedEmailRef.current.value = "";
+      updatedAgeRef.current.value = "";
+      updatedLocationRef.current.value = "";
+      updatedOrdersRef.current.value = "";
+      updatedPhoneRef.current.value = "";
+    } catch (error) {
+      console.error(error);
+    }
+    setShow(false);
+    setShowToast(true);
+    updateToastBody("User Added successfully!");
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  }
+
   return (
     <div className="center-div">
-      <button
-        type="button"
-        className="btn btn-outline-light"
-        data-bs-toggle="modal"
-        data-bs-target="#addDialogModal"
-      >
+      <Button variant="outline-light" onClick={handleShow}>
         Add Users
-      </button>
-      <div
-        className="modal fade"
-        id="addDialogModal"
-        tabindex="-1"
-        aria-labelledby="addDialogModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="addDialogModalLabel">
-                Add User
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div class="input-group">
-                <span class="input-group-text">User Name</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="UserName"
-                  placeholder="User Name"
-                ></input>
-              </div>
-              <div class="input-group">
-                <span class="input-group-text">User Email</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="UserEmail"
-                  placeholder="User Email"
-                ></input>
-              </div>
-              <div class="input-group">
-                <span class="input-group-text">User Phone</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="UserPhone"
-                  placeholder="User Phone"
-                ></input>
-              </div>
-              <div class="input-group">
-                <span class="input-group-text">User Age</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="UserAge"
-                  placeholder="User Age"
-                ></input>
-              </div>
-              <div class="input-group">
-                <span class="input-group-text">User Orders</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="UserOrders"
-                  placeholder="User Orders"
-                ></input>
-              </div>
-              <div class="input-group">
-                <span class="input-group-text">User Location</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="UserLocation"
-                  placeholder="User Location"
-                ></input>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </Button>
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header>
+          <Modal.Title>Add User</Modal.Title>
+          <Button
+            variant="close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></Button>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>User Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="User Name"
+              ref={updatedNameRef}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>User Email</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="User Email"
+              ref={updatedEmailRef}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>User Phone</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="User Phone"
+              ref={updatedPhoneRef}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>User Age</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="User Age"
+              ref={updatedAgeRef}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>User Orders</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="User Orders"
+              ref={updatedOrdersRef}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>User Location</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="User Location"
+              ref={updatedLocationRef}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleAddSubmit}>
+            Add!
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

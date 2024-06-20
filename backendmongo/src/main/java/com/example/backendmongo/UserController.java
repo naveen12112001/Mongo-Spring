@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
     public UserService userService;
-
 
     @PostMapping("/addUser")
     public String saveController(@RequestBody User user){
@@ -38,7 +37,7 @@ public class UserController {
     public String patchUpdateController(@PathVariable("id") String _id, @RequestBody User user){
         return userService.patchUser(_id,user);
     }
-    @PutMapping("/updateUser/{id}")
+    @PutMapping(value="/updateUser/{id}")
     public User updateController(@PathVariable("id") String _id, @RequestBody User user) {
         user.set_id(_id);
         userService.updateUser(user);

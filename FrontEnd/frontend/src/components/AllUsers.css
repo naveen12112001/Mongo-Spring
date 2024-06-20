@@ -24,3 +24,13 @@ ul {
     padding: 2%;
 }
 
+.mainToast .toast-header {
+    background-color: #fdf0d1; /* Change the background color of the toast header */
+    color: black; /* Change the text color of the toast header */
+}
+      
+.mainToast .toast-body {
+    background-color: #fdf0d1; /* Change the background color of the toast body */
+    color: black; /* Change the text color of the toast body */
+}
+
