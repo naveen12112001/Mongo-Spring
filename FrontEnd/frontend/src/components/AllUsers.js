@@ -1,9 +1,9 @@
-import AddDialogBox from "./AddDialogBox";
+import AddDialogBox from "./Buttons/AddDialogBox";
 import React, { useEffect, useState } from "react";
 import "./AllUsers.css";
-import DeleteDialogBox from "./DeleteDialogBox";
-import ReadDialogBox from "./ReadDialogBox";
-import UpdateDialogBox from "./UpdateDialogBox";
+import DeleteDialogBox from "./Buttons/DeleteDialogBox";
+import ReadDialogBox from "./Buttons/ReadDialogBox";
+import UpdateDialogBox from "./Buttons/UpdateDialogBox";
 import axios from "axios";
 import { Toast, ToastContainer } from "react-bootstrap";
 export default function AllUsers() {

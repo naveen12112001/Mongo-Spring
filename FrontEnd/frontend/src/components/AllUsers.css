@@ -9,15 +9,22 @@ ul {
     background-color: #fdf0d1;
     color: black;
     border-radius:10px;
-    align-items: center;
     padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    /* transition: all 1s; */
 }
+/* .listItem:hover{
+    background-color: white;
+    transition: all 1s;
+    width: 30%;
+} */
 .center-div{
     margin-right:6%;
     text-align: end;
 }
 .space{
-    padding: 2%;
+    /* padding: 2%; */
     justify-content: space-evenly;
 }
 .container{

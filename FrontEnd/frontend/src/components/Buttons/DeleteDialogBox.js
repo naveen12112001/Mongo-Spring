@@ -1,6 +1,7 @@
 import axios from "axios";
-import { Modal, Toast } from "react-bootstrap";
-import { useRef, useState } from "react";
+import { Modal ,Button} from "react-bootstrap";
+import { useState } from "react";
+import styles from "./Button.module.css"
 
 export default function DeleteDialogBox({ deleterd, refreshUsers,setShowToast,updateToastBody }) {
   const [show, setShow] = useState(false);
@@ -48,24 +49,24 @@ export default function DeleteDialogBox({ deleterd, refreshUsers,setShowToast,up
       </button>
 
       <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
+        <Modal.Header className={styles.modalHeader} closeButton>
           <Modal.Title>Do you want to delete?</Modal.Title>
         </Modal.Header>
-        <Modal.Footer>
-          <button
+        <Modal.Footer className={styles.modalHeader}>
+          <Button
             type="button"
-            className="btn btn-primary"
+            variant="outline-dark"
             onClick={handledeleteButton}
           >
             Yes, Proceed
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
-            className="btn btn-secondary"
+            variant="outline-dark"
             onClick={handleClose}
           >
             No, Close
-          </button>
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

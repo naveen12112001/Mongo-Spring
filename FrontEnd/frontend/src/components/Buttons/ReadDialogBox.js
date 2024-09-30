@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import styles from "../Buttons/Button.module.css";
 
 export default function ReadDialogBox({ readrd }) {
   const [users, setUsers] = useState();
@@ -38,15 +39,16 @@ export default function ReadDialogBox({ readrd }) {
       </Button>
 
       <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header className={styles.modalHeader} closeButton>
           <Modal.Title>User Information:-</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={styles.modalBody}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>User Name</Form.Label>
             <Form.Control
               type="text"
               value={users && users.username}
+              style={{ backgroundColor: "black", color: "white" }}
               disabled
             />
           </Form.Group>
@@ -55,6 +57,7 @@ export default function ReadDialogBox({ readrd }) {
             <Form.Control
               type="email"
               value={users && users.useremail}
+              style={{ backgroundColor: "black", color: "white" }}
               disabled
             />
           </Form.Group>
@@ -63,6 +66,7 @@ export default function ReadDialogBox({ readrd }) {
             <Form.Control
               type="number"
               value={users && users.userage}
+              style={{ backgroundColor: "black", color: "white" }}
               disabled
             />
           </Form.Group>
@@ -71,6 +75,7 @@ export default function ReadDialogBox({ readrd }) {
             <Form.Control
               type="number"
               value={users && users.userphone}
+              style={{ backgroundColor: "black", color: "white" }}
               disabled
             />
           </Form.Group>
@@ -79,6 +84,7 @@ export default function ReadDialogBox({ readrd }) {
             <Form.Control
               type="number"
               value={users && users.userorders}
+              style={{ backgroundColor: "black", color: "white" }}
               disabled
             />
           </Form.Group>
@@ -87,6 +93,7 @@ export default function ReadDialogBox({ readrd }) {
             <Form.Control
               type="text"
               value={users && users.userlocation}
+              style={{ backgroundColor: "black", color: "white" }}
               disabled
             />
           </Form.Group>

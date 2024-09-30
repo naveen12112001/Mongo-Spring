@@ -18,7 +18,6 @@ public class UserController {
         userService.saveUser(user);
         return "Added Successfully";
     }
-
     @GetMapping("/findAllUsers")
     public List<User> findAllController() {
         return userService.getUsers();
@@ -43,6 +42,4 @@ public class UserController {
         userService.updateUser(user);
         return user;
     }
-
-
 }
